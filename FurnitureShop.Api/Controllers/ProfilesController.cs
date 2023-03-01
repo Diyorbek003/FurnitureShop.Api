@@ -14,6 +14,13 @@ namespace FurnitureShop.Api.Controllers
     [Authorize]
     public class ProfilesController : ControllerBase
     {
+        private readonly UserManager<AppUser> _userManager;
+
+        public ProfilesController(UserManager<AppUser> userManager)
+        {
+            _userManager = userManager;
+        }
+
         [HttpGet]
         [ProducesResponseType(typeof(UserView), StatusCodes.Status200OK)]
         public async Task <IActionResult> GetUserProfile([FromServices] UserManager<AppUser> userManager)
@@ -22,9 +29,18 @@ namespace FurnitureShop.Api.Controllers
             return Ok(user.Adapt<UserView>());
         }
         [HttpPut]
-        public IActionResult UpdateUserProfile([FromBody] UpdateUserDto updateUserDto) 
+        public async Task <IActionResult> UpdateUserProfile([FromBody] UpdateUserDto updateUserDto) 
         {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var user = await _userManager.GetUserAsync(User);
 
+            user.FirstName= updateUserDto.FirstName;
+            user.LastName= updateUserDto.LastName;
+            await _userManager.UpdateAsync(user);
+           
             return Ok();
         }
     }

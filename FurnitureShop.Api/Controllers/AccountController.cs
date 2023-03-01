@@ -58,9 +58,14 @@ public class AccountController : ControllerBase
 
 
     [HttpPost("signin")]
-    public IActionResult SignIn(LoginUserDto loginUserDto)
+    public async Task<IActionResult> SignIn(LoginUserDto loginUserDto)
     {
         if(!ModelState.IsValid)
+        {
+            return BadRequest();
+        }
+        var result = await _signInManager.PasswordSignInAsync(loginUserDto.UserName, loginUserDto.Password, true, true);
+        if (!result.Succeeded)
         {
             return BadRequest();
         }
