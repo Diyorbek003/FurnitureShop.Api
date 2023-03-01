@@ -14,4 +14,10 @@ public class AppDbContext:IdentityDbContext<AppUser,AppUserRole, Guid>
 	public DbSet<Organization> Organizations { get; set; }
 	public DbSet<OrganizationUser> OrganizationUsers { get; set; }
 
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+		base.OnModelCreating(builder);
+		builder.Entity<OrganizationUser>().HasKey(user => new { user.UserId, user.OrganizationId });
+    }
+
 }
