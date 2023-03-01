@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FurnitureShop.Api.Dtos;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FurnitureShop.Api.Controllers
@@ -13,7 +14,7 @@ namespace FurnitureShop.Api.Controllers
             return Ok();
         }
         [HttpPut]
-        public IActionResult UpdateUserProfile() 
+        public IActionResult UpdateUserProfile([FromBody] UpdateUserDto updateUserDto) 
         {
 
             return Ok();

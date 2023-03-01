@@ -34,7 +34,7 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost("signup")]
-    public async Task <IActionResult> SignUp(RegistrUserDto createUserDto)
+    public async Task <IActionResult> SignUp([FromBody]RegistrUserDto createUserDto)
     {
         if(!ModelState.IsValid)
         {
@@ -55,8 +55,9 @@ public class AccountController : ControllerBase
             return BadRequest();
         }
         //claimlarini yasaydi va ulardan tokenni yasaydi va tokenni cookiga yozib jonatadi
-      var signinResult = _signInManager.SignInAsync(user, isPersistent: true);//token yasab claimlariga yozib yuboradi
+       await _signInManager.SignInAsync(user, isPersistent: true);//token yasab claimlariga yozib yuboradi
         // isPoersistentni true qilsak brauzer yopilsaham cookilari turadi false bosa ochib ketadi
+
 
         return Ok();
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FurnitureShop.Api.Dtos;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FurnitureShop.Api.Controllers
@@ -18,13 +19,13 @@ namespace FurnitureShop.Api.Controllers
             return Ok();
         }
         [HttpPost]
-        public IActionResult CreateOrganization() 
+        public IActionResult CreateOrganization([FromBody] CreateOrganizationDto createOrganizationDto) 
         {
             return Ok();
         
         }
         [HttpPut("{id:guid}")]
-        public IActionResult UpdateOrganization(Guid id) 
+        public IActionResult UpdateOrganization([FromBody] UpdateOrganizationDto updateOrganizationDto, Guid id) 
         {
             return Ok();
         }
