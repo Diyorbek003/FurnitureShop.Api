@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FurnitureShop.Api.Data;
 
-public class AppDbContext:IdentityDbContext
+public class AppDbContext:IdentityDbContext<AppUser,AppUserRole, Guid>
 {
 	public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
 	{
